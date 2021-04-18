@@ -36,11 +36,10 @@ public class PointDaoImpl implements PointDao {
 
     @Override
     public List<Point> getAll() {
-//        Session session = entityManager.unwrap(Session.class);
-//        CriteriaBuilder builder = session.getCriteriaBuilder();
-//        CriteriaQuery<Point> criteria = builder.createQuery(Point.class);
-//        criteria.from(Point.class);
-//        return session.createQuery(criteria).getResultList();
-        return null;
+        Session session = entityManager.unwrap(Session.class);
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Point> criteria = builder.createQuery(Point.class);
+        criteria.from(Point.class);
+        return session.createQuery(criteria).getResultList();
     }
 }
