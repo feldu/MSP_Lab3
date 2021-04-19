@@ -6,14 +6,23 @@
         <fileset dir="${main.dir}" includes="*.java"/>
     </path>
 
+    <path id="test.classpath">
+        <fileset dir="${test.dir}" includes="*.java" />
+    </path>
+
     <target name="clean">
         <delete dir="${build.dir}"/>
     </target>
 
     <target name="compile" depends="clean">
         <mkdir dir="${classes.dir}"/>
+        <mkdir dir="${test.classes.dir}" />
         <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath"
                includeantruntime="false"/>
+        <javac srcdir="${test.dir}" destdir="${test.classes.dir}" includeantruntime="false">
+            <classpath refid="classpath" />
+            <classpath refid="test.classpath" />
+        </javac>
         <copy todir="${classes.dir}">
             <fileset dir="${java-resources.dir}"/>
         </copy>
@@ -27,12 +36,21 @@
             <fileset dir="${src.lib.dir}"/>
         </copy>
         <war destfile="${build.dir}/${ant.project.name}.war">
-            <fileset dir="${war_exploded.dir}"/>
+            <fileset dir="${war_exploded.dir}" />
         </war>
 
     </target>
 
-    <target name="test" depends="build">
+    <target name="test" depends="compile">
+        <junitlauncher>
+            <!--     libs       -->
+            <classpath refid="classpath" />
+            <!--      tests      -->
+            <classpath refid="test.classpath" />
+            <testclasses outputdir="${build.dir}">
+                <fileset dir="${test.classes.dir}" />
+            </testclasses>
+        </junitlauncher>
     </target>
 
     <target name="xml">
