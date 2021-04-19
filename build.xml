@@ -17,6 +17,16 @@
     </target>
 
     <target name="build" depends="compile">
+        <copy todir="${war_exploded.dir}">
+            <fileset dir="${web.dir}"/>
+        </copy>
+        <copy todir="${lib.dir}">
+            <fileset dir="${src.lib.dir}"/>
+        </copy>
+        <war destfile="${build.dir}/${ant.project.name}.war">
+            <fileset dir="${war_exploded.dir}"/>
+        </war>
+
     </target>
 
     <target name="test" depends="build">
