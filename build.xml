@@ -36,6 +36,12 @@
     </target>
 
     <target name="xml">
+        <xmlvalidate failonerror="no" warn="yes">
+            <fileset dir="${project.dir}" includes="**/*.xml"/>
+            <attribute name="http://xml.org/sax/features/validation" value="true"/>
+            <attribute name="http://apache.org/xml/features/validation/schema" value="true"/>
+            <attribute name="http://xml.org/sax/features/namespaces" value="true"/>
+        </xmlvalidate>
     </target>
 
     <target name="history">
