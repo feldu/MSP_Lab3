@@ -1,4 +1,4 @@
 .idea
 out
 *.iml
-main/resources
+src/main/resources/META-INF/persistence.xml
