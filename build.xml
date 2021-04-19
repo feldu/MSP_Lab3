@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project name="Web_Lab3" default="build">
+    <property file="build.properties"/>
+
+    <target name="clean">
+    </target>
+
+    <target name="compile" depends="clean">
+    </target>
+
+    <target name="build" depends="compile">
+    </target>
+
+    <target name="test" depends="build">
+    </target>
+
+    <target name="xml">
+    </target>
+
+    <target name="history">
+    </target>
+</project>
