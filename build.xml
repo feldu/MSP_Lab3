@@ -15,7 +15,7 @@
         <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath"
                includeantruntime="false"/>
         <copy todir="${classes.dir}">
-            <fileset dir="${resources.dir}"/>
+            <fileset dir="${java-resources.dir}"/>
         </copy>
     </target>
 
