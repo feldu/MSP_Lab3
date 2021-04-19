@@ -6,8 +6,10 @@
         <fileset dir="${main.dir}" includes="*.java"/>
     </path>
 
-    <path id="test.classpath">
-        <fileset dir="${test.dir}" includes="*.java" />
+    <path id="classpath.test">
+        <pathelement location="${junit}"/>
+        <pathelement location="${hamcrest}"/>
+        <pathelement location="${classes.dir}"/>
     </path>
 
     <target name="clean">
@@ -19,10 +21,6 @@
         <mkdir dir="${test.classes.dir}" />
         <javac srcdir="${main.dir}" destdir="${classes.dir}" classpathref="classpath"
                includeantruntime="false"/>
-        <javac srcdir="${test.dir}" destdir="${test.classes.dir}" includeantruntime="false">
-            <classpath refid="classpath" />
-            <classpath refid="test.classpath" />
-        </javac>
         <copy todir="${classes.dir}">
             <fileset dir="${java-resources.dir}"/>
         </copy>
@@ -42,15 +40,20 @@
     </target>
 
     <target name="test" depends="compile">
-        <junitlauncher>
-            <!--     libs       -->
-            <classpath refid="classpath" />
-            <!--      tests      -->
-            <classpath refid="test.classpath" />
-            <testclasses outputdir="${build.dir}">
-                <fileset dir="${test.classes.dir}" />
-            </testclasses>
-        </junitlauncher>
+        <mkdir dir="${test.classes.dir}"/>
+        <javac destdir="${test.classes.dir}" srcdir="${test.dir}" includeantruntime="false"
+               classpathref="classpath.test"/>
+        <junit printsummary="on" haltonfailure="yes">
+            <classpath>
+                <path refid="classpath.test"/>
+                <pathelement location="${test.classes.dir}"/>
+            </classpath>
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="${test.dir}" includes="**/*Test*.java"/>
+            </batchtest>
+        </junit>
+
     </target>
 
     <target name="xml">
