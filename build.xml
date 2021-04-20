@@ -80,7 +80,6 @@
                 </exec>
                 <exec executable="git">
                     <arg value="diff"/>
-                    <arg value="--cached"/>
                     <redirector output="diff.txt" alwayslog="true"/>
                 </exec>
             </catch>
