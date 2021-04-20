@@ -110,5 +110,10 @@ public class PointTest {
         assertEquals(getMessage(point), point.getResult(), missed);
     }
 
+    @Test
+    public void topRightRoundShouldNotExist() {
+        point = new Point(0.3, 0.4 - epsilon, 1);
+        assertEquals(getMessage((point)), point.getResult(), missed);
+    }
     //todo: Fucking radius tests Ramil' blyat'
 }
