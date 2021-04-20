@@ -25,12 +25,18 @@ public class PointTest {
     }
 
     @Test
+    public void test_0_0_1_with_e() {
+        point = new Point(-epsilon, -epsilon, 1);
+        assertEquals(getMessage(point), point.getResult(), missed);
+    }
+
+    //triangle tests
+    @Test
     public void test_1_0_1() {
         point = new Point(1d, 0d, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
 
-    //triangle tests
     @Test
     public void test_0_05_1() {
         point = new Point(0d, 0.5, 1);
