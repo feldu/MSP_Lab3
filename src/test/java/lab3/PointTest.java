@@ -17,77 +17,98 @@ public class PointTest {
         return "Shit point (" + point.getX() + "," + point.getY() + ") with radius " + point.getR();
     }
 
-    //todo: rename methods
     @Test
-    public void test_0_0_1() {
+    public void zeroTest() {
         point = new Point(0d, 0d, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
 
     @Test
-    public void test_0_0_1_with_e() {
+    public void IQuarterTest() {
+        point = new Point(epsilon, epsilon, 1);
+        assertEquals(getMessage(point), point.getResult(), hit);
+    }
+
+    @Test
+    public void IIQuarterTest() {
+        point = new Point(-epsilon, epsilon, 1);
+        assertEquals(getMessage(point), point.getResult(), hit);
+    }
+
+    @Test
+    public void IIIQuarterTest() {
         point = new Point(-epsilon, -epsilon, 1);
         assertEquals(getMessage(point), point.getResult(), missed);
     }
 
-    //triangle tests
     @Test
-    public void test_1_0_1() {
+    public void IVQuarterTest() {
+        point = new Point(epsilon, -epsilon, 1);
+        assertEquals(getMessage(point), point.getResult(), hit);
+    }
+
+    //triangle border tests
+    @Test
+    public void rightTriangleBorderTest() {
         point = new Point(1d, 0d, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
 
     @Test
-    public void test_0_05_1() {
+    public void topTriangleBorderTest() {
         point = new Point(0d, 0.5, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
 
     @Test
-    public void test_05_025_1() {
+    public void middleTriangleBorderTest() {
         point = new Point(0.5, 0.25, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
 
     @Test
-    public void test_05_025_1_with_e() {
+    public void middleTriangleOutOfBorderTest() {
         point = new Point(0.5 + epsilon, 0.25 + epsilon, 1);
         assertEquals(getMessage(point), point.getResult(), missed);
     }
 
-    //rectangle tests
+    //rectangle border tests
     @Test
-    public void test_m1_05_1() {
+    public void topLeftRectangleBorderTest() {
         point = new Point(-1d, 0.5, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
 
     @Test
-    public void test_m1_05_1_with_e_tr() {
+    public void topRectangleOutOfBorderTest() {
         point = new Point(-1d + epsilon, 0.5 + epsilon, 1);
         assertEquals(getMessage(point), point.getResult(), missed);
     }
 
     @Test
-    public void test_m1_05_1_with_e_bl() {
+    public void leftRectangleOutOfBorderTest() {
         point = new Point(-1d - epsilon, 0.5 - epsilon, 1);
         assertEquals(getMessage(point), point.getResult(), missed);
     }
 
-    //round tests border
+    //round border tests
     @Test
-    public void test_0_m05_1() {
+    public void bottomRoundBorderTest() {
         point = new Point(0d, -0.5, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
+
     @Test
-    public void test_04_m03_1() {
+    public void middleRoundBorderTest() {
         point = new Point(0.4, -0.3, 1);
         assertEquals(getMessage(point), point.getResult(), hit);
     }
+
     @Test
-    public void test_04_m03_1_with_e() {
+    public void middleRoundOutOfBorderTest() {
         point = new Point(0.4 + epsilon, -0.3 - epsilon, 1);
         assertEquals(getMessage(point), point.getResult(), missed);
     }
+
+    //todo: Fucking radius tests Ramil' blyat'
 }
