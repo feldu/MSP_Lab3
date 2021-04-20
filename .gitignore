@@ -3,3 +3,4 @@ out
 *.iml
 src/main/resources/META-INF/persistence.xml
 build
+diff.txt
