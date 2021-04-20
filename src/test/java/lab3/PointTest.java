@@ -66,12 +66,6 @@ public class PointTest {
         assertEquals(getMessage(point), point.getResult(), hit);
     }
 
-    @Test
-    public void middleTriangleOutOfBorderTest() {
-        point = new Point(0.5 + epsilon, 0.25 + epsilon, 1);
-        assertEquals(getMessage(point), point.getResult(), missed);
-    }
-
     //rectangle border tests
     @Test
     public void topLeftRectangleBorderTest() {
