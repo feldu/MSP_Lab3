@@ -68,24 +68,69 @@
     <taskdef resource="net/sf/antcontrib/antlib.xml"/>
 
     <target name="history">
-        <trycatch>
-            <try>
-                <antcall target="compile"/>
-            </try>
-            <catch>
-                <echo>Error in compile target</echo>
-                <exec executable="git">
-                    <arg value="reset"/>
-                    <arg value="HEAD~1"/>
-                </exec>
-                <exec executable="git">
-                    <arg value="diff"/>
-                    <redirector output="diff.txt" alwayslog="true"/>
-                </exec>
-            </catch>
-            <finally>
-                <echo>Finally</echo>
-            </finally>
-        </trycatch>
+        <exec executable="git" outputproperty="commits.count">
+            <arg value="rev-list"/>
+            <arg value="--count" />
+            <arg value="HEAD"/>
+        </exec>
+
+        <exec executable="git" outputproperty="current.commit">
+            <arg value="rev-parse"/>
+            <arg value="HEAD" />
+        </exec>
+        <echo>${commits.count}</echo>
+
+        <if>
+            <length string="${}"
+        </if>
+
+        <for param="i" begin="1" end="${commits.count}">
+            <sequential>
+                <trycatch>
+                    <try>
+                        <antcall target="compile"/>
+                        <property name="breakProperty" value="true" />
+                    </try>
+                    <catch>
+                        <if>
+                            <equals arg1="${first.checked}" arg2="true" />
+                            <then>
+                                <exec executable="git">
+                                    <arg value="reset"/>
+                                    <arg value="--hard"/>
+                                    <arg value="HEAD"/>
+                                </exec>
+                                <echo>Error in compile target</echo>
+                                <exec executable="git">
+                                    <arg value="reset"/>
+                                    <arg value="HEAD~1"/>
+                                </exec>
+                                <exec executable="git">
+                                    <arg value="diff"/>
+                                    <arg value="--cached" />
+                                    <redirector output="diff.txt" alwayslog="true"/>
+                                </exec>
+                            </then>
+                            <else>
+                                <property name="first.checked" value="true" />
+                                <exec executable="git">
+                                    <arg value="diff"/>
+                                    <arg value="HEAD" />
+                                    <redirector output="diff.txt" alwayslog="true"/>
+                                </exec>
+                                <exec executable="git">
+                                    <arg value="stash"/>
+                                </exec>
+                            </else>
+                        </if>
+                    </catch>
+                    <finally>
+                        <echo>Finally</echo>
+                        <echo>Original commit: ${current.commit}</echo>
+                    </finally>
+                </trycatch>
+                <fail if="breakProperty" />
+            </sequential>
+        </for>
     </target>
 </project>
