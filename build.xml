@@ -108,7 +108,7 @@
                                 <echo>Error in compile target</echo>
                                 <exec executable="git">
                                     <arg value="reset"/>
-                                    <arg value="--hard" />
+                                    <arg value="--hard"/>
                                     <arg value="HEAD~1"/>
                                 </exec>
                             </catch>
@@ -124,11 +124,11 @@
             </catch>
             <finally>
                 <if>
-                    <isset property="previous.commit" />
+                    <isset property="previous.commit"/>
                     <then>
                         <exec executable="git">
                             <arg value="diff"/>
-                            <arg value="${previous.commit}" />
+                            <arg value="${previous.commit}"/>
                             <redirector output="diff.txt" alwayslog="true"/>
                         </exec>
                     </then>
