@@ -109,5 +109,17 @@ public class PointTest {
         point = new Point(0.3, 0.4 - epsilon, 1);
         assertEquals(getMessage((point)), point.getResult(), missed);
     }
-    //todo: Fucking radius tests Ramil' blyat'
+
+    //radius test
+    @Test
+    public void topLeftRectangleBorderTestWithRadius5() {
+        point = new Point(-5d, 2.5, 5);
+        assertEquals(getMessage(point), point.getResult(), hit);
+    }
+
+    @Test
+    public void topRectangleOutOfBorderTestWithRadius5() {
+        point = new Point(-5d + epsilon, 2.5 + epsilon, 1);
+        assertEquals(getMessage(point), point.getResult(), missed);
+    }
 }
