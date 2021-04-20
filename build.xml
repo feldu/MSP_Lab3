@@ -101,14 +101,10 @@
                                 <property name="breakProperty" value="true"/>
                             </try>
                             <catch>
-                                <exec executable="git">
-                                    <arg value="reset"/>
-                                    <arg value="--hard"/>
-                                    <arg value="HEAD"/>
-                                </exec>
                                 <echo>Error in compile target</echo>
                                 <exec executable="git">
                                     <arg value="reset"/>
+                                    <arg value="--hard" />
                                     <arg value="HEAD~1"/>
                                 </exec>
                                 <exec executable="git">
@@ -117,8 +113,10 @@
                                     <redirector output="diff.txt" alwayslog="true"/>
                                 </exec>
                             </catch>
+                            <finally>
+                                <fail if="breakProperty"/>
+                            </finally>
                         </trycatch>
-                        <fail if="breakProperty"/>
                     </sequential>
                 </for>
             </try>
