@@ -119,7 +119,7 @@ public class PointTest {
 
     @Test
     public void topRectangleOutOfBorderTestWithRadius5() {
-        point = new Point(-5d + epsilon, 2.5 + epsilon, 1);
+        point = new Point(-5d + epsilon, 2.5 + epsilon, 5);
         assertEquals(getMessage(point), point.getResult(), missed);
     }
 }
