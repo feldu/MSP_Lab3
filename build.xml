@@ -65,6 +65,21 @@
         </xmlvalidate>
     </target>
 
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
     <target name="history">
+        <trycatch>
+            <try>
+                <antcall target="build"/>
+                <fail/>
+            </try>
+            <catch>
+                <echo>Error in build target</echo>
+
+            </catch>
+            <finally>
+                <echo>Finally</echo>
+            </finally>
+        </trycatch>
     </target>
 </project>
